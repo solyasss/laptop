@@ -75,5 +75,5 @@ void CPU::set_price(double p)
 
 void CPU::print() const
 {
-    cout << "CPU - Name: " << name << ", Speed: " << speed << ", Year: " << year << ", Price: " << price << endl;
+    cout << " Name: " << name << ", Speed: " << speed << ", Year: " << year << ", Price: " << price << endl;
 }
