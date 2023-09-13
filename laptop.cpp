@@ -1,78 +1,126 @@
-#include <iostream>
 #include "laptop.h"
+#include <cstring>  //for strcpy
+#include <iostream>
 using namespace std;
 
-Laptop::Laptop()
+int Laptop::laptop_count = 0;
+
+Laptop::Laptop() : name(nullptr), price(0.0), color(nullptr), cpu(), ssd(), gpu(), ram()
 {
-    name = nullptr;
-    color = nullptr;
-    year = 0;
-    price = 0.0;
-    CPU cpu;
-    SSD ssd;
-    Videocard vd;
-    RAM ram;
+    laptop_count++;
 }
 
-Laptop::Laptop(const char *n, const char *c, int y, double pr,
-               const char *cpu_name, const char *cpu_speed, int cpu_year, double cpu_price,
-               const char *ssd_name, const char *ssd_speed, int ssd_year, double ssd_price,
-               const char *vd_name, const char *vd_model, int vd_year, double vd_price,
-               const char *ram_name, const char *ram_model, const char *ram_speed, int ram_year, double ram_price) : cpu(cpu_name, cpu_speed, cpu_year, cpu_price),
-                                                                                                                     ssd(ssd_name, ssd_speed, ssd_year, ssd_price),
-                                                                                                                     gpu(vd_name, vd_model, vd_year, vd_price),
-                                                                                                                     ram(ram_name, ram_model, ram_speed, ram_year, ram_price)
+Laptop::Laptop(const char *n, double p, const char *c, const CPU &c_cpu, const SSD &c_ssd, const GPU &c_gpu, const RAM &c_ram)
+    : price(p), cpu(c_cpu), ssd(c_ssd), gpu(c_gpu), ram(c_ram)
 {
     name = new char[strlen(n) + 1];
-    strcpy_s(name, strlen(n) + 1, n);
-    color = new char[strlen(c) + 1]; // constructor with parameters
-    strcpy_s(color, strlen(c) + 1, c);
-    year = y;
-    price = pr;
+    strcpy(name, n);
+    color = new char[strlen(c) + 1];
+    strcpy(color, c);
+    laptop_count++;
 }
 
 Laptop::Laptop(const Laptop &obj)
+    : price(obj.price), cpu(obj.cpu), ssd(obj.ssd), gpu(obj.gpu), ram(obj.ram)
 {
     name = new char[strlen(obj.name) + 1];
-    strcpy_s(name, strlen(obj.name) + 1, obj.name);
+    strcpy(name, obj.name);
     color = new char[strlen(obj.color) + 1];
-    strcpy_s(color, strlen(obj.color) + 1, obj.color);
-    year = obj.year;
-    price = obj.price;
-
-    cpu.set_name(obj.cpu.get_name());
-    cpu.set_speed(obj.cpu.get_speed());
-    cpu.set_year(obj.cpu.get_year());
-    cpu.set_price(obj.cpu.get_price());
-
-    ssd.set_name(obj.ssd.get_name());
-    ssd.set_speed(obj.ssd.get_speed());
-    ssd.set_year(obj.ssd.get_year());
-    ssd.set_price(obj.ssd.get_price());
-
-    vd.set_name(obj.vd.get_name());
-    vd.set_model(obj.vd.get_model());
-    vd.set_year(obj.vd.get_year());
-    vd.set_price(obj.vd.get_price());
-
-    ram.set_name(obj.ram.get_name());
-    ram.set_model(obj.ram.get_model());
-    ram.set_speed(obj.ram.get_speed());
-    ram.set_year(obj.ram.get_year());
-    ram.set_price(obj.ram.get_price());
-}
-
-void Laptop::print()
-{
-    cout << "name: " << name << "\tcolor: " << color << "\tyear: " << year << "\tprice: " << price << endl;
-    cpu.print();
-    ssd.print();
-    vd.print();
-    ram.print();
+    strcpy(color, obj.color);
+    laptop_count++;
 }
 
 Laptop::~Laptop()
 {
     delete[] name;
     delete[] color;
+    laptop_count--;
+}
+
+const char *Laptop::get_name() const
+{
+    return name;
+}
+
+double Laptop::get_price() const
+{
+    return price;
+}
+
+const char *Laptop::get_color() const
+{
+    return color;
+}
+
+const CPU &Laptop::get_cpu() const
+{
+    return cpu;
+}
+
+const SSD &Laptop::get_ssd() const
+{
+    return ssd;
+}
+
+const GPU &Laptop::get_gpu() const
+{
+    return gpu;
+}
+
+const RAM &Laptop::get_ram() const
+{
+    return ram;
+}
+
+void Laptop::set_name(const char *n)
+{
+    delete[] name;
+    name = new char[strlen(n) + 1];
+    strcpy(name, n);
+}
+
+void Laptop::set_price(double p)
+{
+    price = p;
+}
+
+void Laptop::set_color(const char *c)
+{
+    delete[] color;
+    color = new char[strlen(c) + 1];
+    strcpy(color, c);
+}
+
+void Laptop::set_cpu(const CPU &c_cpu)
+{
+    cpu = c_cpu;
+}
+
+void Laptop::set_ssd(const SSD &c_ssd)
+{
+    ssd = c_ssd;
+}
+
+void Laptop::set_gpu(const GPU &c_gpu)
+{
+    gpu = c_gpu;
+}
+
+void Laptop::set_ram(const RAM &c_ram)
+{
+    ram = c_ram;
+}
+
+double Laptop::get_total_price() const
+{
+    return price + cpu.get_price() + ssd.get_price() + gpu.get_price() + ram.get_price();
+}
+
+void Laptop::print() const
+{
+    cout << " Name: " << name << ", Color: " << color << ", Price: " << price << ", Total Price: " << get_total_price() << endl;
+    cpu.print();
+    ssd.print();
+    gpu.print();
+    ram.print();
 }

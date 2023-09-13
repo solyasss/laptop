@@ -1,33 +1,43 @@
 #include "cpu.h"
 #include "ssd.h"
+#include "gpu.h"
 #include "ram.h"
-#include "videocard.h"
-using namespace std;
 
-class Laptop
-{
+class Laptop {
 private:
-    char *name;
-    char *color;
-    int year;
+    char* name;
     double price;
+    char* color;
     CPU cpu;
     SSD ssd;
-    Videocard vd;
+    GPU gpu;
     RAM ram;
 
 public:
-    static int count;
+    static int laptop_count;
+
     Laptop();
-    Laptop(const char *n, const char *c, int y, double pr,
-           const char *cpu_name, const char *cpu_speed, int cpu_year, double cpu_price,
-           const char *ssd_name, const char *ssd_speed, int ssd_year, double ssd_price,
-           const char *vd_name, const char *vd_model, int vd_year, double vd_price,
-           const char *ram_name, const char *ram_model, const char *ram_speed, int ram_year, double ram_price);
-    Laptop(const Laptop &obj);
-    void print();
+    Laptop(const char* n, double p, const char* c, const CPU& c_cpu, const SSD& c_ssd, const GPU& c_gpu, const RAM& c_ram);
+    Laptop(const Laptop& obj);
     ~Laptop();
 
-    void calculate_price() const;
-    static void num_of_laptops();
+    const char* get_name() const;
+    double get_price() const;
+    const char* get_color() const;
+    const CPU& get_cpu() const;
+    const SSD& get_ssd() const;
+    const GPU& get_gpu() const;
+    const RAM& get_ram() const;
+
+    void set_name(const char* n);
+    void set_price(double p);
+    void set_color(const char* c);
+    void set_cpu(const CPU& c_cpu);
+    void set_ssd(const SSD& c_ssd);
+    void set_gpu(const GPU& c_gpu);
+    void set_ram(const RAM& c_ram);
+
+    double get_total_price() const;
+    void print() const;
 };
+
