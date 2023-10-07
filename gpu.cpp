@@ -1,11 +1,9 @@
 #include "gpu.h"
-#include <cstring> //for strcpy
+#include <cstring> // for strcpy
 #include <iostream>
 using namespace std;
 
-GPU::GPU() : name(nullptr), model(nullptr), year(0), price(0.0)
-{
-}
+GPU::GPU() : name(nullptr), model(nullptr), year(0), price(0.0) {}
 
 GPU::GPU(const char *n, const char *m, int y, double p) : year(y), price(p)
 {

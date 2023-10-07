@@ -1,11 +1,9 @@
 #include "ssd.h"
-#include <cstring> //for strcpy
+#include <cstring> // for strcpy
 #include <iostream>
 using namespace std;
 
-SSD::SSD() : name(nullptr), speed(nullptr), year(0), price(0.0)
-{
-}
+SSD::SSD() : name(nullptr), speed(nullptr), year(0), price(0.0) {}
 
 SSD::SSD(const char *n, const char *s, int y, double p) : year(y), price(p)
 {

@@ -1,11 +1,9 @@
 #include "ram.h"
-#include <cstring> //for strcpy
+#include <cstring> // for strcpy
 #include <iostream>
 using namespace std;
 
-RAM::RAM() : name(nullptr), type(nullptr), speed(nullptr), year(0), price(0.0)
-{
-}
+RAM::RAM() : name(nullptr), type(nullptr), speed(nullptr), year(0), price(0.0) {}
 
 RAM::RAM(const char *n, const char *t, const char *s, int y, double p) : year(y), price(p)
 {

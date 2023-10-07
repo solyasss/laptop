@@ -1,5 +1,5 @@
 #include "laptop.h"
-#include <cstring>  //for strcpy
+#include <cstring> // for strcpy
 #include <iostream>
 using namespace std;
 

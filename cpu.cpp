@@ -3,9 +3,7 @@
 #include <iostream>
 using namespace std;
 
-CPU::CPU() : name(nullptr), speed(nullptr), year(0), price(0.0)
-{
-}
+CPU::CPU() : name(nullptr), speed(nullptr), year(0), price(0.0) {}
 
 CPU::CPU(const char *n, const char *s, int y, double p) : year(y), price(p)
 {
